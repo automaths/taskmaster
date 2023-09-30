@@ -1,11 +1,12 @@
-#include <iostream>
+#include "Config.hpp"
 #include <yaml-cpp/yaml.h>
+
 
 int main() {
 
-    std::cout << "Hello, World!" << std::endl;
+    YAML::Node l_config = YAML::LoadFile("coucou.yaml");
 
-    YAML::Node config = YAML::LoadFile("config_ex.yml");
+    Config cfg(l_config);
 
     return 0;
 }

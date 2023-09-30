@@ -1,19 +1,19 @@
 SRCS			=	./main.cpp 
 
-OBJS			= 	$(SRCS:.c=.o)
+OBJS			= 	$(SRCS:.cpp=.o)
 
 LIBS			= 	-L ./yaml-cpp -lyaml-cpp -I./yaml-cpp/include
 
 CC				= 	g++
 RM				= 	rm -f
-CFLAGS			= 	-Wall -Wextra -Werror
+CPPFLAGS		= 	-Wall -Wextra -Werror -std=c++11 $(LIBS)
 
 NAME			= 	taskmaster
 
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				g++ $(CFLAGS) -g3 -o $(NAME) $(OBJS) $(LIBS)
+				g++ $(CPPFLAGS) -g3 -o $(NAME) $(OBJS) $(LIBS)
 
 clean:
 				$(RM) $(OBJS)
