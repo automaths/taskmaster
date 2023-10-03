@@ -1,8 +1,8 @@
-SRCS			=	./main.cpp 
+SRCS			=	./main.cpp ./utils.cpp
 
 OBJS			= 	$(SRCS:.cpp=.o)
 
-LIBS			= 	-L ./yaml-cpp -lyaml-cpp -I./yaml-cpp/include
+LIBS			= 	
 
 CC				= 	g++
 RM				= 	rm -f

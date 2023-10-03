@@ -2,36 +2,33 @@
 #include <string>
 #include <exception>
 #include <unordered_map>
-// #include <yaml-cpp/yaml.h>
-#include <yaml-cpp/yaml.h>
+#include "utils.hpp"
 
 class Config {
 
 public:
 
-    Config(YAML::Node &p_config) {
-
-
-
-        if (!isValid(p_config)) {
-            throw std::runtime_error("Invalid config file");
-        }
-
-        for (YAML::iterator it = p_config.begin(); it != p_config.end(); ++it) {
-            std::cout << "key: " << it->first << std::endl;
-            std::cout << "value: " << it->second << std::endl;
-            std::cout << std::endl;
+    Config(std::string p_filename) {
+        std::string l_fileContent = file2string(p_filename);
+        std::string l_line;
+        std::string l_key;
+        std::string l_value;
+        std::stringstream l_stream(l_fileContent);
+        while (std::getline(l_stream, l_line)) {
+            if (l_line[0] == '#') {
+                continue;
+            }
+            std::stringstream l_lineStream(l_line);
+            std::getline(l_lineStream, l_key, ':');
+            std::getline(l_lineStream, l_value);
+            m_config[l_key] = l_value;
         }
     }
 
-    bool isValid(YAML::Node &p_config) {
-
-        std::cout << p_config.Type() << std::endl;
-
-        if (!p_config.IsMap() || p_config.size() == 0) {
-            return false;
+    void printConfig() {
+        for (auto& l_pair : m_config) {
+            std::cout << l_pair.first << " = " << l_pair.second << std::endl;
         }
-        return true;
     }
 
 private:
